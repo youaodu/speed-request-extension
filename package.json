@@ -1,0 +1,94 @@
+{
+  "name": "speed-request-extension",
+  "displayName": "Speed Request",
+  "description": "A VSCode extension for quick HTTP requests and API documentation management using .api files",
+  "version": "0.0.1",
+  "publisher": "youaodu",
+  "author": "youaodu",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/youaodu/speed-request-extension.git"
+  },
+  "bugs": {
+    "url": "https://github.com/youaodu/speed-request-extension/issues"
+  },
+  "homepage": "https://github.com/youaodu/speed-request-extension#readme",
+  "keywords": [
+    "http",
+    "api",
+    "request",
+    "documentation",
+    "rest",
+    "testing"
+  ],
+  "icon": "resources/icon.png",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Testing",
+    "Other"
+  ],
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "activationEvents": [
+    "onLanguage:api"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "api",
+        "aliases": ["API", "api"],
+        "extensions": [".api"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "api",
+        "scopeName": "source.api",
+        "path": "./resources/syntax/api.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "speedRequest.sendRequest",
+        "title": "Send API Request"
+      },
+      {
+        "command": "speedRequest.sendRequestAtLine",
+        "title": "Send Request at Line"
+      },
+      {
+        "command": "speedRequest.showRequestInfo",
+        "title": "Show Request Info"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "resourceExtname == .api",
+          "command": "speedRequest.sendRequest",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}

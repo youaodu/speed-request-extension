@@ -1,0 +1,219 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "API",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#api-definition"
+    },
+    {
+      "include": "#http-methods"
+    },
+    {
+      "include": "#urls"
+    },
+    {
+      "include": "#section-headers"
+    },
+    {
+      "include": "#headers"
+    },
+    {
+      "include": "#params"
+    },
+    {
+      "include": "#path-params"
+    },
+    {
+      "include": "#global-vars"
+    },
+    {
+      "include": "#json-body"
+    },
+    {
+      "include": "#variables"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.api",
+          "match": "#.*$"
+        }
+      ]
+    },
+    "api-definition": {
+      "patterns": [
+        {
+          "name": "markup.heading.1.api entity.name.function.api",
+          "match": "^###\\s+.*$"
+        },
+        {
+          "name": "markup.heading.2.api entity.name.type.response.api",
+          "match": "^####\\s+Response$"
+        },
+        {
+          "name": "markup.heading.2.api comment.block.api",
+          "match": "^####$"
+        }
+      ]
+    },
+    "http-methods": {
+      "patterns": [
+        {
+          "name": "support.function.http-method.api keyword.other.special-method.api",
+          "match": "\\b(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS)\\b"
+        }
+      ]
+    },
+    "urls": {
+      "patterns": [
+        {
+          "name": "string.quoted.other.url.api markup.underline.link.api",
+          "match": "https?://[^\\s]+"
+        }
+      ]
+    },
+    "section-headers": {
+      "patterns": [
+        {
+          "name": "support.type.property-name.api entity.name.tag.section.api",
+          "match": "^(Header|Params|Body|Path|Form|Global):"
+        }
+      ]
+    },
+    "headers": {
+      "patterns": [
+        {
+          "name": "variable.parameter.header.api",
+          "match": "^\\s\\s([A-Za-z-]+):",
+          "captures": {
+            "1": {
+              "name": "support.type.property-name.header.api"
+            }
+          }
+        },
+        {
+          "name": "string.other.header-value.api constant.other.color.api",
+          "match": "(?<=:\\s).*$"
+        }
+      ]
+    },
+    "params": {
+      "patterns": [
+        {
+          "name": "string.other.query-params.api constant.numeric.decimal.api",
+          "match": "^\\s\\s[^\\s=]+=[^&\\s]*(?:&[^&\\s]*)*"
+        }
+      ]
+    },
+    "path-params": {
+      "patterns": [
+        {
+          "name": "variable.other.path-param.api",
+          "match": "^\\s\\s([^=\\s]+)=",
+          "captures": {
+            "1": {
+              "name": "entity.name.function.path-name.api"
+            }
+          }
+        },
+        {
+          "name": "string.interpolated.path-value.api constant.character.escape.api",
+          "match": "(?<==)[^\\s]*"
+        }
+      ]
+    },
+    "json-body": {
+      "patterns": [
+        {
+          "name": "meta.structure.dictionary.json.api",
+          "begin": "\\{",
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "#json-string"
+            },
+            {
+              "include": "#json-number"
+            },
+            {
+              "include": "#json-boolean"
+            },
+            {
+              "include": "#json-null"
+            }
+          ]
+        }
+      ]
+    },
+    "json-string": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.json.api",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.json.api",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "json-number": {
+      "patterns": [
+        {
+          "name": "constant.numeric.json.api",
+          "match": "-?\\d+(\\.\\d+)?([eE][+-]?\\d+)?"
+        }
+      ]
+    },
+    "json-boolean": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.json.api",
+          "match": "\\b(true|false)\\b"
+        }
+      ]
+    },
+    "json-null": {
+      "patterns": [
+        {
+          "name": "constant.language.null.json.api",
+          "match": "\\bnull\\b"
+        }
+      ]
+    },
+    "global-vars": {
+      "patterns": [
+        {
+          "name": "variable.other.global.api",
+          "match": "^\\s*([^=\\s]+)=",
+          "captures": {
+            "1": {
+              "name": "entity.name.variable.global.api"
+            }
+          }
+        },
+        {
+          "name": "string.other.global-value.api constant.other.symbol.api",
+          "match": "(?<==).*$"
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.other.readwrite.api constant.other.placeholder.api",
+          "match": "\\{\\{[^}]+\\}\\}"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.api"
+}

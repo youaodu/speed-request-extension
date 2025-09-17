@@ -1,0 +1,70 @@
+Global:
+  token=yyyyy
+  domain=http://test.test.domain
+  
+
+### 获取用户信息
+GET https://api.example.com/users/{{userId}}
+Header:
+  Authorization: Bearer {{token}}
+Params:
+  xxxx=xxx&yyy=yyy
+Path:
+  userId=xxx
+
+
+### 创建用户
+POST https://api.example.com/users
+Header:
+  Authorization: Bearer {{token}}
+Body:
+{
+  "name": "张三",
+  "email": "zhangsan@example.com"
+}
+
+
+#### Response
+ERROR: getaddrinfo ENOTFOUND api.example.com
+
+####
+
+
+
+### 创建用户
+POST https://api.example.com/users
+Header:
+  Authorization: Bearer {{token}}
+Form:
+{
+  "name": "张三",
+  "email": "zhangsan@example.com"
+}
+
+
+### 测试测试
+POST {{domain}}/log/api/v1/search/project/1241/query
+Header:
+  Authorization: Token xxxxxxxxxxxxx
+Body:
+{"tableName":"log_tinyurl_shorten_url", // 表名称
+"queryString":"select * from log_tinyurl_shorten_url",
+"startTime":1744165911000,"endTime":1744166811000,
+"interval":"1m","token":"7788a38dfe8947909d4b4a669dxeabcd",
+"size":50,
+"icebergTableId":9167,
+"esTableId":-1}
+
+
+#### Response
+HTTP/1.1 200 
+Content-Type: application/json;charset=UTF-8
+Date: 2025-09-17T09:36:52.180Z
+Duration: 138ms
+
+{
+  "code": 100012,
+  "data": null,
+  "message": "log_tinyurl_shorten_url表没找到，请检查"
+}
+####
