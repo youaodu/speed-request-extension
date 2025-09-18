@@ -85,8 +85,10 @@ export class InlineResultDecorator {
             console.log(`No existing result range found`);
         }
 
-        // 生成结果内容 - 如果是替换，不需要前导换行
-        let resultContent = existingResultRange ? '#### Response\n' : '\n#### Response\n';
+        // 生成结果内容 - 检查插入位置前是否已有空行
+        const needsLeadingNewline = this.needsLeadingNewline(document, insertPosition);
+        let resultContent = existingResultRange ? '#### Response\n' :
+                          needsLeadingNewline ? '\n#### Response\n' : '#### Response\n';
 
         if (response) {
             resultContent += `HTTP/1.1 ${response.status} ${response.statusText}\n`;
@@ -130,11 +132,9 @@ export class InlineResultDecorator {
             }
         }
 
-        // 检查插入位置的下一行是否是API定义，如果是则添加额外换行
-        const nextLineIsApi = insertPosition.line < document.lineCount &&
-                             document.lineAt(insertPosition.line).text.trim().startsWith('### ');
-
-        resultContent += nextLineIsApi ? '\n####\n\n' : '\n####\n';
+        // 检查是否需要在结尾添加空行以与下一个API保持间距
+        const needsTrailingNewline = this.needsTrailingNewline(document, insertPosition);
+        resultContent += needsTrailingNewline ? '\n####\n\n' : '\n####\n';
 
         await editor.edit(editBuilder => {
             if (existingResultRange) {
@@ -145,6 +145,20 @@ export class InlineResultDecorator {
                 editBuilder.insert(insertPosition, resultContent);
             }
         });
+    }
+
+    private static needsLeadingNewline(document: vscode.TextDocument, insertPosition: vscode.Position): boolean {
+        // 检查插入位置前一行是否为空行
+        if (insertPosition.line === 0) return false;
+
+        const prevLine = document.lineAt(insertPosition.line - 1).text.trim();
+        return prevLine !== ''; // 如果前一行不为空，需要添加前导换行
+    }
+
+    private static needsTrailingNewline(document: vscode.TextDocument, insertPosition: vscode.Position): boolean {
+        // 检查插入位置是否是下一个API定义前
+        return insertPosition.line < document.lineCount &&
+               document.lineAt(insertPosition.line).text.trim().startsWith('### ');
     }
 
     private static findInsertPosition(document: vscode.TextDocument, requestLineNumber: number): vscode.Position {
