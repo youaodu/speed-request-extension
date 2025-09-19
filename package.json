@@ -2,7 +2,7 @@
   "name": "speed-request-extension",
   "displayName": "Speed Request",
   "description": "A VSCode extension for quick HTTP requests and API documentation management using .api files",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "youaodu",
   "author": "youaodu",
   "license": "MIT",
