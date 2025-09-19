@@ -6,6 +6,7 @@ import { HttpClient } from './http/httpClient';
 import { RequestBuilder } from './http/requestBuilder';
 import { InlineResultDecorator } from './ui/inlineResultDecorator';
 import { VariableManager } from './utils/variableManager';
+import { ApiCompletionProvider } from './language/completionProvider';
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('Speed Request extension is now active!');
@@ -90,6 +91,14 @@ export function activate(context: vscode.ExtensionContext) {
         codeLensProvider
     );
 
+    // 注册自动完成提供器
+    const completionProvider = new ApiCompletionProvider();
+    const completionDisposable = vscode.languages.registerCompletionItemProvider(
+        { scheme: 'file', language: 'api' },
+        completionProvider,
+        ' ', ':', '{', '/', '#'  // 触发字符，添加 # 以触发API定义补全
+    );
+
     // 注册显示请求信息命令
     const showRequestInfoCommand = vscode.commands.registerCommand('speedRequest.showRequestInfo',
         async (uri: vscode.Uri, lineNumber: number) => {
@@ -120,7 +129,8 @@ export function activate(context: vscode.ExtensionContext) {
         sendRequestCommand,
         sendRequestAtLineCommand,
         showRequestInfoCommand,
-        codeLensDisposable
+        codeLensDisposable,
+        completionDisposable
     );
 
     // 提取响应内容的辅助函数
