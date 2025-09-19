@@ -1,6 +1,6 @@
 Global:
   token=yyyyy
-  domain=http://test.test.domain
+  domain=http://venus.cloud.qiyi.domain
   
 
 ### 获取用户信息
@@ -23,14 +23,6 @@ Body:
   "email": "zhangsan@example.com"
 }
 
-
-#### Response
-ERROR: getaddrinfo ENOTFOUND api.example.com
-
-####
-
-
-
 ### 创建用户
 POST https://api.example.com/users
 Header:
@@ -42,13 +34,24 @@ Form:
 }
 
 
+
+#### Response
+ERROR: getaddrinfo ENOTFOUND api.example.com
+
+####
+
+
+
+
+
+
 ### 测试测试
 POST {{domain}}/log/api/v1/search/project/1241/query
 Header:
-  Authorization: Token xxxxxxxxxxxxx
+  Authorization: Token 769f692afca443d1b39c7ac1b3814454
 Body:
 {"tableName":"log_tinyurl_shorten_url", // 表名称
-"queryString":"select * from log_tinyurl_shorten_url",
+"queryString":"select * from log_tinyurl_shorten_url", // 
 "startTime":1744165911000,"endTime":1744166811000,
 "interval":"1m","token":"7788a38dfe8947909d4b4a669dxeabcd",
 "size":50,
@@ -57,14 +60,6 @@ Body:
 
 
 #### Response
-HTTP/1.1 200 
-Content-Type: application/json;charset=UTF-8
-Date: 2025-09-17T09:36:52.180Z
-Duration: 138ms
+ERROR: getaddrinfo ENOTFOUND venus.cloud.qiyi.domain
 
-{
-  "code": 100012,
-  "data": null,
-  "message": "log_tinyurl_shorten_url表没找到，请检查"
-}
 ####
