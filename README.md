@@ -13,6 +13,8 @@ Speed Request is a VSCode extension designed for developers to quickly create an
 - 🔧 **Syntax Highlighting**: Custom syntax highlighting support designed specifically for `.api` files
 - 🌐 **Variable Support**: Support for global variables and template variables for easy environment switching
 - 📝 **Response Recording**: Automatically record request responses for debugging and documentation maintenance
+- ✨ **Language Support & Auto-Completion**: Comprehensive IntelliSense support with smart completions
+- 🎯 **Code Snippets**: Pre-built templates for rapid API development
 
 ### Advantages as a Documentation Management Tool
 
@@ -20,6 +22,77 @@ Speed Request is a VSCode extension designed for developers to quickly create an
 - **Version Control**: `.api` files can be version-controlled alongside code, ensuring documentation stays in sync
 - **Team Collaboration**: Team members can share and maintain unified API documentation
 - **Test Integration**: Documentation serves as test cases, ensuring API correctness
+
+## Language Support & Auto-Completion
+
+Speed Request provides comprehensive language support for `.api` files with intelligent auto-completion features that enhance your productivity.
+
+### 🎯 Auto-Completion Features
+
+#### HTTP Methods Completion
+Type any letter and get suggestions for HTTP methods:
+- **GET** - Retrieve data from a specified resource
+- **POST** - Submit data to be processed
+- **PUT** - Update a resource or create if it doesn't exist
+- **DELETE** - Delete a specified resource
+- **PATCH** - Apply partial modifications to a resource
+- **HEAD** - Same as GET but returns only headers
+- **OPTIONS** - Returns supported HTTP methods
+
+#### Section Headers Completion
+Smart completion for API file sections:
+- **Global:** - Define global variables
+- **Header:** - HTTP headers section
+- **Params:** - Query parameters section
+- **Path:** - Path variables section
+- **Body:** - Request body content
+- **Form:** - Form data section
+
+#### HTTP Headers Completion
+Common HTTP headers with descriptions:
+- **Authorization** - Authentication credentials
+- **Content-Type** - Media type of the request body
+- **Accept** - Content types the client can process
+- **User-Agent** - Client software identification
+- **Cache-Control** - Caching directives
+- **Cookie** - Stored HTTP cookies
+- **X-API-Key** - Custom API authentication header
+
+#### Content-Type Values
+Automatic suggestions for common MIME types:
+- `application/json`
+- `application/xml`
+- `application/x-www-form-urlencoded`
+- `multipart/form-data`
+- `text/plain`
+- `text/html`
+
+#### Variable Completion
+- **Global Variables**: Shows all defined global variables
+- **Template Syntax**: Auto-completes `{{variableName}}` format
+- **Context-Aware**: Only shows relevant variables based on current context
+
+#### API Request Templates
+Type `###` to get a complete API request template with placeholders:
+```
+### API Name
+METHOD https://api.example.com
+Header:
+  Authorization: Bearer token
+```
+
+### 🚀 Usage Tips
+
+#### Triggering Auto-Completion (Mac)
+- **`Cmd+I`** - Primary auto-completion shortcut
+- **`Option+Esc`** - Alternative completion trigger
+- **Auto-trigger** - Completions appear automatically when typing relevant characters
+
+#### Smart Context Recognition
+- The extension understands your current context and provides relevant suggestions
+- When in a Header: section, you'll see header name completions
+- When typing after `Content-Type:`, you'll get MIME type suggestions
+- Variable completion appears when you type `{{`
 
 ## Syntax Reference
 
